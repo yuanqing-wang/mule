@@ -39,6 +39,21 @@ class Simulation:
         self.graph = graph_from_openmm_topology(
             self.simulation.topology,
         )
+        self._record_initial_state()
 
+    def _record_initial_state(self):
+        self._initial_state = self.simulation.context.getState(
+            getPositions=True,
+            getVelocities=True,
+        )
+
+    def restore(self):
+        self.simulation.context.setPositions(
+            self._initial_state.getPositions()
+        )
+
+        self.simulation.context.setVelocities(
+            self._initial_state.getVelocities()
+        )
 
 
