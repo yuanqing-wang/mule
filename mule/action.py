@@ -34,7 +34,7 @@ class Action:
     def __call__(
             self,
             simulation: Simulation,
-    ) -> Simulation:
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """Perform the action and record the state."""
         simulation = self._call(simulation)
         positions, velocities, energy = self._analyaze_simulation(simulation)
